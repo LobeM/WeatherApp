@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,16 +13,72 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="QgI-K9-f1b">
+                                <rect key="frame" x="0.0" y="20" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Condition" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oqh-bH-rA6">
+                                <rect key="frame" x="148.5" y="146" width="77.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zhW-G8-ipX">
+                                <rect key="frame" x="96" y="108" width="183" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search for a city" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUI-gn-0Mo">
+                                        <rect key="frame" x="0.0" y="0.0" width="183" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lr2-E7-TBc">
+                                <rect key="frame" x="159" y="174" width="57.5" height="60"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hYt-U1-utn">
+                                <rect key="frame" x="224" y="172.5" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="KVe-8c-kUQ"/>
+                                    <constraint firstAttribute="width" constant="64" id="uxv-di-sFM"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="zhW-G8-ipX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1gZ-PX-AjR"/>
+                            <constraint firstItem="QgI-K9-f1b" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Apw-MK-bmr"/>
+                            <constraint firstItem="Oqh-bH-rA6" firstAttribute="top" secondItem="zhW-G8-ipX" secondAttribute="bottom" constant="8" id="P9e-MA-lVp"/>
+                            <constraint firstItem="Oqh-bH-rA6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aIX-Xb-YHy"/>
+                            <constraint firstItem="QgI-K9-f1b" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cMx-cF-VAI"/>
+                            <constraint firstItem="hYt-U1-utn" firstAttribute="centerY" secondItem="lr2-E7-TBc" secondAttribute="centerY" id="d1T-Ip-fbS"/>
+                            <constraint firstItem="lr2-E7-TBc" firstAttribute="top" secondItem="Oqh-bH-rA6" secondAttribute="bottom" constant="8" id="exx-OC-yZh"/>
+                            <constraint firstItem="zhW-G8-ipX" firstAttribute="top" secondItem="QgI-K9-f1b" secondAttribute="bottom" constant="32" id="iO5-FN-VP2"/>
+                            <constraint firstItem="QgI-K9-f1b" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yBZ-Lg-oej"/>
+                            <constraint firstItem="hYt-U1-utn" firstAttribute="leading" secondItem="lr2-E7-TBc" secondAttribute="trailing" constant="8" id="yMc-hL-SI9"/>
+                            <constraint firstItem="lr2-E7-TBc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zdH-eq-TUQ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="cityLbl" destination="qUI-gn-0Mo" id="v2h-8V-2dv"/>
+                        <outlet property="conditionLbl" destination="Oqh-bH-rA6" id="EMJ-LG-a9X"/>
+                        <outlet property="degreeLbl" destination="lr2-E7-TBc" id="g7y-G0-Wae"/>
+                        <outlet property="imgView" destination="hYt-U1-utn" id="yKo-Ta-3xd"/>
+                        <outlet property="searchBar" destination="QgI-K9-f1b" id="aMX-sG-eE3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="132.68365817091455"/>
         </scene>
     </scenes>
 </document>
