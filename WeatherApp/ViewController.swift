@@ -88,8 +88,6 @@ class ViewController: UIViewController, UISearchBarDelegate {
                 print("data error")
                 return
             }
-//            let dataAsString = String(data: data, encoding: .utf8)
-//            print(dataAsString)
             
             do {
                 let currentWeather = try JSONDecoder().decode(CurrentWeather.self, from: data)
