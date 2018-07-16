@@ -21,11 +21,6 @@ class ViewController: UIViewController, UISearchBarDelegate {
     struct CurrentWeather: Decodable {
         let location: Location?
         let current: Current?
-        let error: NunError?
-    }
-    
-    struct NunError: Decodable {
-        let message: String
     }
     
     struct Location: Decodable {
@@ -65,12 +60,9 @@ class ViewController: UIViewController, UISearchBarDelegate {
     var condition: String!
     var imgURL: String!
     var city: String!
-    
-    var exists: Bool = true
+   
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
         searchBar.delegate = self
     }
     
@@ -82,43 +74,25 @@ class ViewController: UIViewController, UISearchBarDelegate {
         
         let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
             guard error == nil else {
-                print(error!)
+                print("error")
                 return
             }
-            guard let response = response as? HTTPURLResponse, 200..<300 ~= response.statusCode else { return }
-            guard let data = data else { return }
+            guard let response = response as? HTTPURLResponse, 200..<300 ~= response.statusCode else {
+                print("response error")
+                DispatchQueue.main.async {
+                    self.cityLbl.text = "No matching city found"
+                }
+                return
+            }
+            guard let data = data else {
+                print("data error")
+                return
+            }
 //            let dataAsString = String(data: data, encoding: .utf8)
 //            print(dataAsString)
             
             do {
                 let currentWeather = try JSONDecoder().decode(CurrentWeather.self, from: data)
-                
-//                guard let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [String : AnyObject] as? [String:Any] else {return}
-//
-//                let current = Location(json: json)
-//                print(current.current.temp_c)
-                
-//                    if let current = json["current"] as? [String : AnyObject] {
-//
-//                        if let temp = current["temp_c"] as? Int {
-//                            self.degree = temp
-//                        }
-//                        if let condition = current["condition"] as? [String : AnyObject] {
-//                            self.condition = condition["text"] as! String
-//                            let icon = condition["icon"] as! String
-//                            self.imgURL = "http:\(icon)"
-//                        }
-//                    }
-//                    if let location = json["location"] as? [String : AnyObject] {
-//                        self.city = location["name"] as! String
-//                    }
-//
-//                    if let _ = json["error"] {
-//                        self.exists = false
-//                    }
-                if let _ = currentWeather.error?.message {
-                    self.exists = false
-                }
                 self.degree = currentWeather.current?.temp_c
                 self.condition = currentWeather.current?.condition.text
                 let icon = currentWeather.current?.condition.icon
@@ -126,25 +100,13 @@ class ViewController: UIViewController, UISearchBarDelegate {
                 self.city = currentWeather.location?.name
 
                 DispatchQueue.main.async {
-                    if self.exists{
-                        self.degreeLbl.isHidden = false
-                        self.conditionLbl.isHidden = false
-                        self.imgView.isHidden = false
-                        self.degreeLbl.text = "\(self.degree.description)°"
-//                            print(self.degree.description)
-                        self.cityLbl.text = self.city
-//                            print(self.condition)
-                        self.conditionLbl.text = self.condition
-//                            print(self.condition)
-                        self.imgView.downloadImage(from: self.imgURL!)
-
-                    }else {
-                        self.degreeLbl.isHidden = true
-                        self.conditionLbl.isHidden = true
-                        self.imgView.isHidden = true
-                        self.cityLbl.text = "No matching city found"
-                        self.exists = true
-                    }
+                    self.degreeLbl.isHidden = false
+                    self.conditionLbl.isHidden = false
+                    self.imgView.isHidden = false
+                    self.degreeLbl.text = "\(self.degree.description)°"
+                    self.cityLbl.text = self.city
+                    self.conditionLbl.text = self.condition
+                    self.imgView.downloadImage(from: self.imgURL!)
                 }
                 
             } catch let jsonError {
